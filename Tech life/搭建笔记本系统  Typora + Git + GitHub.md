@@ -1,5 +1,7 @@
 # 搭建笔记本系统 | Typora + Git + GitHub
 
+[toc]
+
 使用过印象笔记和OneNote，但是功能都太臃肿，不适合自己。之前一直都听说Typora，加上自己对Markdown语法有了解，因此搭建了这套笔记系统。这篇文章将讲述如何结合Typora和GitHub来管理自己的笔记。系统如下：
 
 ![流程图](https://zexi-typora.oss-cn-beijing.aliyuncs.com/picgo/%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
@@ -133,7 +135,7 @@ Quicker 动作「获得 ssh 公钥」安装地址：
 
 ![Image](https://mmbiz.qpic.cn/mmbiz_png/WdqAMJxDC6oyYQeVDlurt7gSCejy3QqVQRhs1aobDetNV8LOdCW5LroFh241loRrPgvt5vmcg4S7u4Pohzamhw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
-## **GitHub  配置公钥 & 创建仓库**
+## GitHub  配置公钥 & 创建仓库
 
 得到公钥之后，打开 GitHub 官网，点击右上角的个人头像，选择 Settings 打开设置页面。
 
@@ -153,7 +155,7 @@ Quicker 动作「获得 ssh 公钥」安装地址：
 
 ![Image](https://mmbiz.qpic.cn/mmbiz_png/WdqAMJxDC6oyYQeVDlurt7gSCejy3QqV0VHunMfTH98tYLia139mCuZzXFTL2mt5cE6B8a8FxO5z8beowHsomuw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
-## **本地配置**
+## 本地配置
 
 我们在本地写东西使用的工具是 Typora，它不像微软的 VS Code 代码编辑器那么强大——集成了 Git，可以通过图形化操作的方式，很方便地将本地文件上传到 GitHub。
 
@@ -177,7 +179,7 @@ Quicker 动作「Typora+github 云笔记初始化/远程同步」安装地址：
 
 到这里，我们就算是完成了所有写文章之前的前置操作，接下来就可以愉快地码字了。
 
-## **将 Typora 写的文章上传到 GitHub**
+## 将 Typora 写的文章上传到 GitHub
 
 就譬如你当前正在看的这篇文章，我就是在 Typora 中写的，我可以在写的过程中边写边上传到 GitHub，也可以等整篇文章写完再一并上传。
 
