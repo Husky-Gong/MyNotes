@@ -194,3 +194,13 @@ Quicker 动作「Typora+github 云笔记初始化/远程同步」安装地址：
 ![Image](https://mmbiz.qpic.cn/mmbiz_png/WdqAMJxDC6oyYQeVDlurt7gSCejy3QqV88GvXcydprZfj3gfNbOA9XnQgIH2oThyfibZuaalVQza6J9hP29O7MA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
 只要有网络，你也能随时随地查看自己写过的东西，除了网页端，GitHub 也推出了**移动端**，不过稍微有点遗憾的是，使用 iPhone 的朋友，需要去到非国区的 App Store 才能下到 GitHub App。
+
+
+
+> 注：文章部分内容转载自：
+>
+> [阿里云OSS PicGo 配置图床教程 超详细](https://blog.csdn.net/kai123wen/article/details/104027802)
+>
+> [Quicker介绍](https://mp.weixin.qq.com/s?__biz=MzAxMjY0NTY5OA==&mid=2649881749&idx=1&sn=52709287a4eb8c2b8c624755adb8edbb&scene=21#wechat_redirect)
+>
+> [搭建Typora+Git+Github](https://mp.weixin.qq.com/s/KVLJufBNpXeEyfoIJtk1Sw)
