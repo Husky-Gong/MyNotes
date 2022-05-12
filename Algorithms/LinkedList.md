@@ -123,6 +123,6 @@ Leetcode 234
 
 
 [^1]: The base case is a way to **return without making a recursive call**.
-[^2]: space complexity of recursive algorithm is proportinal to **maximum depth** of recursion tree generated
-[^3]: the dummy head, that will point to your **final answer** or list that you will return.
+[^2]: Space complexity of recursive algorithm is proportinal to **maximum depth** of recursion tree generated
+[^3]: The dummy head, that will point to your **final answer** or list that you will return.
 
