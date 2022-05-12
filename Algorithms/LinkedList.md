@@ -1,6 +1,8 @@
 # LinkedList
 
-[TOC]
+__TOC__
+
+
 
 ## 1 单链表翻转
 
