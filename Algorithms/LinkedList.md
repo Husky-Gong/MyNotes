@@ -33,16 +33,6 @@
 ##### 代码
 
 ```java
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
 class Solution {
     public ListNode reverseList(ListNode head) {
         if (head == null || head.next == null) {
@@ -127,16 +117,6 @@ class Solution {
 ##### 代码
 
 ```java
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
 class Solution {
     public ListNode reverseBetween(ListNode head, int left, int right) {
         // dummy head
@@ -194,16 +174,6 @@ class Solution {
 ##### 代码
 
 ```java
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
 class Solution {
     public boolean isPalindrome(ListNode head) {
         if (head == null || head.next == null) {
@@ -266,7 +236,69 @@ class Solution {
 
 ## 2 链表中环的检测
 
+### [Leetcode 141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
+
+##### 特殊案例
+
+输入链表为空或者只有一个节点
+
+##### 解题思路
+
+使用快、慢指针，判断这两个指针能否相遇。
+
+##### 代码
+
+```java
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if (head == null) {
+            return false;
+        }
+        
+        ListNode slow = head, fast = head;
+        
+        // 如果fast.next == null 了就表明无循环
+        while (fast.next != null && fast.next.next != null) {
+            
+            slow = slow.next;
+            fast = fast.next.next;
+            
+            if (slow == fast) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+}
+```
+
+### [Leetcode 142. Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/)
+
+##### 特殊案例
+
+输入链表为空或者只有一个节点
+
+##### 解题思路
+
+1. 使用快、慢指针
+2. 数学推导：
+   1. 快指针路程：2v * t = a + b + N * c
+   2. 慢指针路程：v * t = a + b
+   3. a + b = N * c (此时b为慢指针所在位置)
+   4. 慢指针从b点移动a步，可以到达环的入口
+
+<img src="https://zexi-typora.oss-cn-beijing.aliyuncs.com/picgo/142_fig1.png" alt="142_fig1" style="zoom: 25%;" />
+
+##### 复杂度
+
+- 时间复杂度：O(N)，慢指针不会超过链表的总长度
+
+- 空间复杂度：O(1)，没有使用额外的空间
+
 ## 3 两个有序链表的合并
+
+
 
 ## 4 删除链表倒数第N各节点
 
