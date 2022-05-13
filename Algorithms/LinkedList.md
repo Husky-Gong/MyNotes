@@ -104,11 +104,165 @@ class Solution {
 }
 ```
 
-Leetcode 92
+### [Leetcode 92. Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/)
 
-Leetcode 234
+这个题目无法化为更小情况，因此无法使用递归方法。
+
+##### 特殊案例
+
+1. 无需翻转：翻转链表长度为0
+2. 输入链表长度为0或者1
+
+##### 解题思路
+
+1. 找到调换部分链表的起始位置
+2. 对该部分链表进行调换
+3. 将调换链表左边、右边以及调换部分进行连接
+
+##### 复杂度
+
+- 时间复杂度：O(N)，所有链表节点只遍历一遍
+- 空间复杂度：O(1)，无需开辟新的空间
+
+##### 代码
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        // dummy head
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        
+        // left part
+        ListNode prev = null, cur = dummy; // 为什么使用prev是因为，可能m是0
+        for (int i = 0; i < left; i++) {
+            prev = cur;
+            cur = cur.next;
+        }
+        
+        // reverse nodes
+        ListNode prev2 = prev;
+        ListNode cur2 = cur;
+        
+        for (int i = left; i <= right; i++) {
+            ListNode newHead = cur2.next;
+            cur2.next = prev2;
+            prev2 = cur2;
+            cur2 = newHead;
+        }
+        
+        prev.next = prev2;
+        cur.next = cur2;
+        
+        return dummy.next;
+    }
+}
+```
 
 
+
+### [Leetcode 234. Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/)
+
+##### 特殊案例
+
+链表长度为0或者1的时候，该链表为回文。
+
+##### 解题思路
+
+- 使用额外空间：将链表复制到列表中，然后使用两个指针分别从头和尾向中间扫描，通过比较每次扫描的节点判断是否回文。
+- 不使用额外空间：将后半部分列表进行翻转，然后比较前半部分和后半部分列表。
+  1. 找到链表中间位置，注意：当链表中节点为偶数个的时候，中间节点是在左半部分的最后一个节点；当为奇数个的时候，则为正当中那个。
+  2. 定义后半部分：中间节点之后开始
+  3. 翻转后半部分节点
+  4. 分别从前半部分和翻转后的后半部分开始遍历，判断是否回文
+
+##### 复杂度
+
+- 时间复杂度：O(N)，**找中点**遍历所有节点一次，**翻转**遍历一半节点一次，**比较**遍历所有节点一次
+- 空间复杂度：O(1)，无需额外空间。
+
+##### 代码
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        
+        // get mid
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        
+        ListNode mid = findMid(head);
+        
+        ListNode rightPart = mid.next;
+        mid.next = null;
+        
+        ListNode newHead = reverseList(rightPart);
+        
+        while (newHead != null) {
+            if (head.val != newHead.val) {
+                return false;
+            }
+            
+            head = head.next;
+            newHead = newHead.next;
+        }
+        
+        return true;
+    }
+    
+    private ListNode findMid(ListNode head) {
+        ListNode fast = new ListNode(0);
+        ListNode slow = new ListNode(0);
+        
+        fast.next = head;
+        slow.next = head;
+        
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        return slow;
+    }
+    
+    private ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode cur = head;
+        
+        while (cur != null) {
+            ListNode nextNode = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = nextNode;
+        }
+        
+        return prev;
+    }
+}
+```
 
 ## 2 链表中环的检测
 
