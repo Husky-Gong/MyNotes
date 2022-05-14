@@ -2,6 +2,8 @@
 
 [toc]
 
+![LinkedList](https://zexi-typora.oss-cn-beijing.aliyuncs.com/picgo/LinkedList.png)
+
 ## 1 单链表翻转
 
 ### [Leetcode 206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
