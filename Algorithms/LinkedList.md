@@ -6,7 +6,7 @@
 
 ### [Leetcode 206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
 
-#### Recursive
+#### 递归方法
 
 ##### 特殊案例
 
@@ -50,7 +50,7 @@ class Solution {
 
 
 
-#### Iteration
+#### 迭代方法
 
 ##### 特殊案例
 
@@ -298,7 +298,173 @@ public class Solution {
 
 ## 3 两个有序链表的合并
 
+### [Leetcode 160. Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists/)
 
+##### 特殊案例
+
+1. 两个链表不相交：不需要单独列出
+2. 两个链表为空
+
+均不需要单独列出判断，因为不相交和为空最终都会变为`Null`跳出循环。
+
+##### 解题思路
+
+1. 让节点a，b分别从链表1,2出发，当到达尾部时，a继续从2开始，b继续从1开始。
+2. 数学证明：链表1长度为N，链表2长度为M。那么，两个节点相遇的时候，就一定是两个链表相交的点，因为M+N = N+M。
+
+##### 复杂度
+
+- 时间复杂度：O(M+N)，M+N为两个链表节点总和。
+- 空间复杂度：O(1)，没有开辟额外空间。
+
+##### 代码
+
+```java
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode a = headA, b = headB;
+        
+        while (a != b) {
+            a = a == null ? headB : a.next;
+            b = b == null ? headA : b.next;
+        }
+        
+        return a;
+    }
+}
+```
+
+### [Leetcode 21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
+
+#### 递归方法
+
+##### 最小情况
+
+当输入节点为`Null`的时候返回
+
+##### 解题思路
+
+1. 递归每一层做的事情：找到下一个节点，返回的时候将该节点连接到要输出结果的后面。
+2. 递归每一层会有以下三种情况：
+   1. 当链表1已经为`Null`时，那么就直接把链表2的节点接上去，
+   2. 当链表2已经为`Null`时，那么就直接把链表1的节点接上去。
+   3. 当两个链表都有节点时，则进行比较两个链表的节点，并且将更小值的节点接上去。
+
+##### 复杂度
+
+- 时间复杂度：O(N + M)，两个链表所有节点都遍历一遍
+- 空间复杂度：O(N + M)，递归N + M次
+
+##### 代码
+
+```java
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if (list1 == null) {
+            return list2;
+        } else if (list2 == null) {
+            return list1;
+        } else if (list1.val < list2.val) {
+            list1.next = mergeTwoLists(list1.next, list2);
+            return list1;
+        } else {
+            list2.next = mergeTwoLists(list1, list2.next);
+            return list2;
+        }
+    }
+}
+```
+
+### 迭代方法
+
+##### 解题思路
+
+分别遍历两个链表，将更小的加到结果链表尾部
+
+##### 复杂度
+
+- 时间复杂度：O(N + M)
+- 空间复杂度：O(1)
+
+##### 代码
+
+```java
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode curr = new ListNode(0);
+        ListNode dummy = curr;
+        
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
+                curr.next = list1;
+                list1 = list1.next;
+            } else {
+                curr.next = list2;
+                list2 = list2.next;
+            }
+            
+            curr = curr.next;
+        }
+        
+        if (list1 != null) {
+            curr.next = list1;
+        }
+        
+        if (list2 != null) {
+            curr.next = list2;
+        }
+        
+        return dummy.next;
+    }
+}
+```
+
+### [Leetcode 23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)
+
+##### 解题思路
+
+使用`PriorityQueue`将这些链表排序，按照头结点的值。然后每次取出最顶部（最小）的头结点，放入到结果链表中，并将该节点从原节点去除掉后，放回`PriorityQueue`。直到将所有节点按照从小到大的顺序存入到结果链表中
+
+##### 复杂度
+
+- 时间复杂度：O(N * log(K))，N是所有节点数，K是链表个数。log(K)是每次将链表放回`PriorityQueue`时候排序所消耗的时间。
+- 空间复杂度：O(N)
+
+##### 代码
+
+```java
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((a, b) -> a.val - b.val);
+        
+        for (ListNode node : lists) {
+            if (node != null) {
+                pq.offer(node);
+            }
+        }
+        
+        // pop top list and put head into final list
+        // check if it is null, if so do not add it back to pq
+        ListNode res = new ListNode(0);
+        ListNode dummy = res;
+        
+        while (!pq.isEmpty()) {
+            ListNode temp = pq.poll();
+            res.next = new ListNode(temp.val);
+            temp = temp.next;
+            res = res.next;
+            
+            if (temp == null) {
+                continue;
+            } else {
+                pq.offer(temp);
+            }
+        }
+        
+        return dummy.next;
+    }
+}
+```
 
 ## 4 删除链表倒数第N各节点
 
