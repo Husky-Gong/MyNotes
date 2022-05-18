@@ -87,9 +87,27 @@ After following this, servers can now horizontally scale. But might have another
 
 Here are 2 paths:
 
-- To do master-slave replication, read from slaves and write to master and upgrade master server with more RAM
+- To do master-slave replication, read from slaves and write to master and upgrade master server with more RAM;
+- De-normalize right from the beginning and include no Joins operations. In this way, you still use MySQL, but treat it as a No-SQL database.
 
+### Part 3: Cache
 
+Even we use master-slave model database, users will still suffer from slow page requests because read/write directly on database is time consuming. The solution is to implement of a cache.
+
+A cache is a simple key-value store and it should reside as a buffering layer between your application and your data storage. Whenever your application has to read data, it should first try to retrieve data from the cache. If it does not hit, then it will read from your database.
+
+### Part 4: Asynchronism
+
+- Do time-consuming work in advance: We can turn dynamic content into static content. For example, pages of website, maybe built with a massive framework or CSM. We can pre-compute the overall data and upload these pre-rendered HTML pages to AWS S3 or other CDN (Content Delivery Network). Next time, users requests will get these pre-compute data directly from these Cloud front and will save a lot of time.
+- Handle tasks asynchronously: If a customer has a special request. We can handle this special task asynchronously. Once we get the special request, we will sends a job to a job queue and immediately signals back the customer and inform him his task is in queue, please wait. 
+
+## Trade-offs
+
+### [Performance VS Scalability](M:\Typora\MyNotes\MyNotes\System Design\Performance VS Scalability.md)
+
+Scalability is being able to handle large amounts of users/data/traffic. 
+
+Performance is about speed. 
 
 [四层负载均衡中的NAT模式与IP隧道模式](https://www.bilibili.com/video/BV1WS4y1F7uN?t=4.2)
 
