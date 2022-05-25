@@ -1,0 +1,38 @@
+# Back-Tracking
+
+All problems solved by the backtracking method can be abstracted into a tree structure. Backtracking always try to find a smaller case recursively. Thus, it generates the tree's width and depth.
+
+
+
+Backtracking method template
+
+```java
+void backtracking(params..) {
+    if (accpted cases) {
+        ...;
+        return;
+    }
+    for (...) {
+        // optimize cases
+        if(...) {
+            break;
+        }
+        process;
+        backtracking(...); // recursion
+        back-track;
+    }
+}
+```
+
+## Combination
+
+
+
+## Divide
+
+
+
+
+
+## Sub-set
+

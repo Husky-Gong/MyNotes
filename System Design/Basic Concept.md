@@ -109,6 +109,102 @@ Scalability is being able to handle large amounts of users/data/traffic.
 
 Performance is about speed. 
 
+## Availability VS Consistency
+
+The CAP theorem states that, in a distributed system, we can only have two out of: Consistency, Availability and Partition Tolerance.
+
+- Consistency: All clients see the same data at the same time.
+- Availability: All clients can perform read and write accesses at any time since the system always responds.
+- Partition Tolerance: The system can continue to operate as a whole even if individual nodes fail or cannot communicate with other nodes.
+
+In distribution system, networks aren't completely reliable, and we must tolerate partitions in the system. This means, in CAP theorem, we are left two options: Consistency and Availability.
+
+- CP - Consistency & Partition: This is referring to a system where availability is sacrificed only in case of a network partition.  In this case, when a request is sent to a partitioned node. However, the node does not have the most updated data (Not consistency). It will keep waiting for a response from the partitioned node and might result in a timeout error. CP is a good choice is your business needs atomic reads and writes. e.g. Banking applications need to be able to reliably debit and transfer funds from accounts. They depend on **consistency and partition tolerance** to prevent accounting errors.
+- AP - Availability & Partition: This is referring to a system where consistency is sacrificed only in case of a network partition. In this case a request can be always responsible, no matter the data is the most latest or not. e.g. DNS (i.e. the domain name system) is AP theorem. Due to a large number of servers, DNS system is available all the time. If a DNS server fails, the next one will take its place. However, consistency is not guaranteed. If an entry is modified, it may take several days to pass the changes to all servers in the system.
+
+### Consistency patterns
+
+### Weak consistency
+
+After a write, reads may or may not see it. A best effort approach is taken.
+
+This approach is seen in systems such as memcached. Weak consistency works well in real time use cases such as VoIP, video chat, and realtime multiplayer games. For example, if you are on a phone call and lose reception for a few seconds, when you regain connection you do not hear what was spoken during connection loss. (data is lose -> weak consistency)
+
+### Eventual consistency
+
+After a write, reads will eventually see it (typically within milliseconds). Data is replicated asynchronously.
+
+This approach is seen in systems such as DNS and email. Eventual consistency works well in highly available systems.
+
+### Strong consistency
+
+After a write, reads will see it. Data is replicated synchronously.
+
+This approach is seen in file systems and RDBMSes. Strong consistency works well in systems that need **transactions**.
+
+
+
+### Availability patterns
+
+There are two complementary patterns to support high availability: fail-over and replication.
+
+- Fail-over: It means in case of an issue (e.g. crashed node of a cluster, no network) application will be handled (will run) by different node of a cluster.
+- Replication: Replicate data from site A to site B. Usually one wants this to be a different DC (data center) as you want to survive disasters recovery.
+
+#### Fail-over
+
+##### Active-passive
+
+With active-passive fail-over, heartbeats are sent between the active and passive servers on standby. If the heartbeat is interrupted, the passive server takes over the active's IP address and resumes the service.
+
+The length of downtime is determined by whether the passive node is a **hot** standby or a **cold** standby. 
+
+Active-passive failover can also be referred to as master-slave failover. 
+
+##### Active-active
+
+In active-active, both servers are managing traffic, spreading the load between them. 
+
+Active-active failover is also referred as master-master failover.
+
+##### Pros & Cons
+
+- Pros
+  - High availability
+- Cons
+  - Need more hardware and additional complexity
+  - There is a potential for loss of data if the active system fails before any newly written data can be replicated to the passive
+
+
+
+#### Replication
+
+##### Master-slave
+
+**Master**: It serve for reads and writes and replicate newly writes to its slaves.
+
+**Slave**: It serve for reads. It will standby and when a master goes offline, the system can continue to read-only mode until a slave is promoted to a master or a new master is provisioned.
+
+<img src="https://zexi-typora.oss-cn-beijing.aliyuncs.com/picgo/C9ioGtn.png" alt="img" style="zoom:25%;" />
+
+
+
+##### Master-master
+
+Both masters serve reads and writes and coordinate with each other on writes. If either master goes down, the system can continue to operate with both reads and writes.
+
+<img src="https://zexi-typora.oss-cn-beijing.aliyuncs.com/picgo/krAHLGg.png" alt="img" style="zoom:33%;" />
+
+##### Pros & Cons
+
+- Pros:
+  - high availability
+- Cons:
+  - Potential loss of data if the master fails before any newly written data can be replicated to other nodes
+  - Need more hardware and additional complexity
+
+
+
 [四层负载均衡中的NAT模式与IP隧道模式](https://www.bilibili.com/video/BV1WS4y1F7uN?t=4.2)
 
 [四层和七层负载均衡的区别介绍](https://blog.csdn.net/weixin_33738555/article/details/92861552?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1-92861552-blog-90673399.pc_relevant_aa&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1-92861552-blog-90673399.pc_relevant_aa&utm_relevant_index=2)

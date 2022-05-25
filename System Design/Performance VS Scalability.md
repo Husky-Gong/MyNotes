@@ -10,7 +10,7 @@ A useful analogy is checking out at the supermarket. Let’s say a cashier can c
 
 What happens when 2 shoppers attempt to go to the cashier every minute? One shopper will be checked out in 1 minute, but the second shopper will take 2 minutes.
 
-![img](https://zexi-typora.oss-cn-beijing.aliyuncs.com/picgo/short_queue.png)
+![img](https://zexi-typora.oss-cn-beijing.aliyuncs.com/picgo/short_queue.png)  
 
 The **performance** we care about is not how fast the cashier can checkout a single person. It is how long the **average** shopper is waiting. Performance for a single cashier works for us well enough when there aren’t very many people. The performance **drops** quickly when we add shoppers at a faster rate than a single cashier can handle. 
 
